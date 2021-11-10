@@ -7,6 +7,30 @@ enum custom_keycodes {
 #else
     VRSN = SAFE_RANGE,
 #endif
+    KC_DQUO_PLUS
+};
+
+enum {
+    TD_QUOT_PLUS
+};
+
+void dquo_plus_finished(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code16(KC_DQUO);
+    } else {
+        SEND_STRING("\"+");
+    }
+}
+
+void dquo_plus_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        unregister_code16(KC_DQUO);
+    }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for quot, twice for quot then +, three times for quot then + then y
+    [TD_QUOT_PLUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dquo_plus_finished, dquo_plus_reset),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -19,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 			  KC_F12, KC_NO,                                              TG(4), KC_NO, 
 				KC_PAST, KC_MINS, KC_TILD,                                  MO(2), KC_CIRC, KC_DLR, 
-				KC_SPC, KC_BSPC, MO(3),                                     KC_DQUO, KC_ESC, KC_ENT
+				KC_SPC, KC_BSPC, MO(3),                                     TD(TD_QUOT_PLUS), KC_ESC, KC_ENT
 ),
 
 [1] = LAYOUT_ergodox_pretty_80(
@@ -79,6 +103,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case VRSN:
                 SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
                 return false;
+            case KC_DQUO_PLUS:
+                if (record->event.pressed) {
+                    // when keycode QMKBEST is pressed
+                    SEND_STRING("HEK");
+                } else {
+                    // when keycode QMKBEST is released
+                }
+                break;
         }
     }
     return true;
