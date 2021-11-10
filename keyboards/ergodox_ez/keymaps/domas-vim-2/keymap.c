@@ -7,7 +7,6 @@ enum custom_keycodes {
 #else
     VRSN = SAFE_RANGE,
 #endif
-    KC_DQUO_PLUS
 };
 
 enum {
@@ -103,14 +102,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case VRSN:
                 SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
                 return false;
-            case KC_DQUO_PLUS:
-                if (record->event.pressed) {
-                    // when keycode QMKBEST is pressed
-                    SEND_STRING("HEK");
-                } else {
-                    // when keycode QMKBEST is released
-                }
-                break;
         }
     }
     return true;
