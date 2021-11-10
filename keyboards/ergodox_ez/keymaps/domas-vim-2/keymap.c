@@ -13,23 +13,28 @@ enum {
     TD_QUOT_PLUS
 };
 
-void dquo_plus_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dquo_plus_each(qk_tap_dance_state_t *state, void *user_data) { 
     if (state->count == 1) {
         register_code16(KC_DQUO);
+    } else if (state->count == 2){
+        unregister_code16(KC_DQUO);
+        register_code16(KC_PLUS);
     } else {
-        SEND_STRING("\"+");
+        unregister_code16(KC_PLUS);
     }
 }
 
-void dquo_plus_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dquo_plus_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code16(KC_DQUO);
+    } else if (state->count == 2){
+        unregister_code16(KC_PLUS);
     }
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for quot, twice for quot then +, three times for quot then + then y
-    [TD_QUOT_PLUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dquo_plus_finished, dquo_plus_reset),
+    [TD_QUOT_PLUS] = ACTION_TAP_DANCE_FN_ADVANCED(dquo_plus_each, dquo_plus_finished, NULL),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
