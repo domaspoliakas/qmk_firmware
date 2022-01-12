@@ -48,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_LCBR,                 KC_UNDS, KC_RCBR, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSPC, 
     KC_LCTL, KC_GRV, KC_QUES, KC_LALT, KC_LGUI,                     KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_ENT, 
 
-			  KC_F12, KC_NO,                                              TG(L_GAME), KC_NO, 
-				KC_PAST, KC_MINS, KC_TILD,                                  MO(L_MEDIA), KC_CIRC, KC_DLR, 
-				KC_SPC, KC_BSPC, MO(L_SYMBOLS),                             TD(TD_QUOT_PLUS), KC_ESC, KC_ENT
+            KC_F12, KC_NO,                                              TG(L_GAME), KC_NO, 
+            KC_PAST, KC_MINS, KC_TILD,                                  MO(L_MEDIA), KC_CIRC, KC_DLR, 
+            KC_SPC, KC_BSPC, MO(L_SYMBOLS),                             TD(TD_QUOT_PLUS), KC_ESC, KC_ENT
 ),
 
 [L_NUMS] = LAYOUT_ergodox_pretty_80(
